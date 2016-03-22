@@ -1,4 +1,4 @@
-from app import app
+from tof_server import app
 
 @app.route('/')
 @app.route('/index')

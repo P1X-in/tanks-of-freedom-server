@@ -1,4 +1,4 @@
 from flask import Flask
 
 app = Flask(__name__)
-from app import views
+from tof_server import views
