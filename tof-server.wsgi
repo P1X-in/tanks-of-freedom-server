@@ -5,4 +5,4 @@ execfile(activate_this, dict(__file__=activate_this))
 #with open(activator) as f:
 #    exec(f.read(), {'__file__': activator})
 
-from app import app as application
+from tof_server import app as application
