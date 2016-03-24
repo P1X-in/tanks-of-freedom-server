@@ -2,7 +2,7 @@
 CREATE TABLE players (
     id INT NOT NULL auto_increment,
     creation_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    auto_pin VARCHAR(8) NOT NULL
+    auto_pin VARCHAR(8) NOT NULL,
     PRIMARY KEY (id)
 );
 
