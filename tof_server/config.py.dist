@@ -1,0 +1,6 @@
+
+# database configuration
+MYSQL_HOST = 'localhost'
+MYSQL_USER = 'user'
+MYSQL_PASSWORD = 'pass'
+MYSQL_DB = 'db'
