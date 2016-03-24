@@ -14,7 +14,7 @@ def index():
 def generate_new_id():
     """Method for generating new unique player ids"""
     try:
-        conn = mysql.connect()
+        cursor = mysql.connection.cursor()
 
         return jsonify({
             'id' : 'somestubid',
@@ -25,4 +25,4 @@ def generate_new_id():
             'error' : str(er_msg)
         }), 500)
     finally:
-        conn.close()
+        cursor.close()
