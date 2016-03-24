@@ -1,6 +1,6 @@
 """This module provides views for application."""
 from tof_server import app, versioning, mysql
-from flask import jsonify
+from flask import jsonify, make_response
 
 @app.route('/')
 def index():
@@ -13,9 +13,16 @@ def index():
 @app.route('/players', methods=['POST'])
 def generate_new_id():
     """Method for generating new unique player ids"""
-    conn = mysql.connect()
-    conn.close()
-    return jsonify({
-        'id' : 'somestubid',
-        'pin' : 'stubpin'
-    })
+    try:
+        conn = mysql.connect()
+
+        return jsonify({
+            'id' : 'somestubid',
+            'pin' : 'stubpin'
+        })
+    except Exception as er_msg:
+        return make_response(jsonify({
+            'error' : str(er_msg)
+        }), 500)
+    finally:
+        conn.close()
