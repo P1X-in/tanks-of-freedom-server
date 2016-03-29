@@ -4,3 +4,6 @@ MYSQL_HOST = 'localhost'
 MYSQL_USER = 'user'
 MYSQL_PASSWORD = 'pass'
 MYSQL_DB = 'db'
+
+
+MAP_CODE_LENGTH = 8

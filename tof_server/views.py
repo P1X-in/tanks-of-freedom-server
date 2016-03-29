@@ -1,7 +1,6 @@
 """This module provides views for application."""
-from tof_server import app, versioning, mysql
+from tof_server import app, versioning, mysql, randcoder, config
 from flask import jsonify, make_response
-import string, random
 
 @app.route('/')
 def index():
@@ -15,11 +14,7 @@ def index():
 def generate_new_id():
     """Method for generating new unique player ids"""
     cursor = mysql.connection.cursor()
-    new_pin = ''
-
-    characters_pool = string.ascii_uppercase + string.digits
-    for _ in range(8):
-        new_pin = new_pin + random.SystemRandom().choice(characters_pool)
+    new_pin = randcoder.get_random_code(8)
 
     insert_sql = "INSERT INTO players (auto_pin) VALUES (%s)"
     id_sql = "SELECT LAST_INSERT_ID()"
@@ -41,7 +36,7 @@ def generate_new_id():
 def upload_new_map():
     """Method for uploading new map"""
     return jsonify({
-        'code' : 'dummy'
+        'code' : randcoder.get_random_code(config.MAP_CODE_LENGTH)
     })
 
 @app.route('/maps/<string:map_code>', methods=['GET'])
