@@ -30,6 +30,7 @@ def generate_new_id():
 
         insert_data = cursor.fetchone()
 
+        cursor.commit()
         cursor.close()
 
         return jsonify({
