@@ -30,7 +30,7 @@ def generate_new_id():
 
         insert_data = cursor.fetchone()
 
-        cursor.commit()
+        mysql.connection.commit()
         cursor.close()
 
         return jsonify({
