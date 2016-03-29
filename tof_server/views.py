@@ -22,8 +22,16 @@ def generate_new_id():
         for _ in range(8):
             new_pin = new_pin + random.SystemRandom().choice(characters_pool)
 
+        insert_sql = "INSERT INTO players (auto_pin) VALUES ('%s')"
+        id_sql = "SELECT LAST_INSERT_ID()"
+
+        cursor.execute(insert_sql, (new_pin))
+        cursor.execute(id_sql)
+
+        insert_data = cursor.fetchone()
+
         return jsonify({
-            'id' : 'somestubid',
+            'id' : insert_data[0],
             'pin' : new_pin
         })
     except Exception as er_msg:
