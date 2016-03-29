@@ -30,6 +30,8 @@ def generate_new_id():
 
         insert_data = cursor.fetchone()
 
+        cursor.close()
+
         return jsonify({
             'id' : insert_data[0],
             'pin' : new_pin
@@ -38,5 +40,3 @@ def generate_new_id():
         return make_response(jsonify({
             'error' : str(er_msg)
         }), 500)
-    finally:
-        cursor.close()
