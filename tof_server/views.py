@@ -1,6 +1,7 @@
 """This module provides views for application."""
 from tof_server import app, versioning, mysql, randcoder, config
-from flask import jsonify, make_response
+from tof_server import player_validator
+from flask import jsonify, request, abort
 
 @app.route('/')
 def index():
@@ -35,6 +36,9 @@ def generate_new_id():
 @app.route('/maps', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map"""
+    if not player_validator.validate(request):
+        abort(403)
+
     return jsonify({
         'code' : randcoder.get_random_code(config.MAP_CODE_LENGTH)
     })
