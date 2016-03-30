@@ -36,9 +36,14 @@ def generate_new_id():
 @app.route('/maps', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map"""
-    validation = player_validator.validate(request)
+    cursor = mysql.connection.cursor()
+
+    validation = player_validator.validate(request, cursor)
     if validation['status'] != 'ok':
         abort(validation['code'])
+
+    mysql.connection.commit()
+    cursor.close()
 
     return jsonify({
         'code' : randcoder.get_random_code(config.MAP_CODE_LENGTH),
