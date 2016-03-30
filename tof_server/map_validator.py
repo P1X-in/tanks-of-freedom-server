@@ -9,5 +9,5 @@ def validate(map_data, cursor):
 
     return {
         'status' : 'ok',
-        'result' : md5_hash
+        'result' : md5_hash.hexdigest()
     }
