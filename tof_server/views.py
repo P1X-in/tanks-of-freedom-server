@@ -36,24 +36,27 @@ def generate_new_id():
 @app.route('/maps', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map"""
-    cursor = mysql.connection.cursor()
+    try:
+        cursor = mysql.connection.cursor()
 
-    validation = player_validator.validate(request, cursor)
-    if validation['status'] != 'ok':
-        abort(validation['code'])
+        validation = player_validator.validate(request, cursor)
+        if validation['status'] != 'ok':
+            abort(validation['code'])
 
-    validation = map_validator.validate(request.json['data'], cursor)
-    if validation['status'] != 'ok':
-        abort(validation['code'])
+        validation = map_validator.validate(request.json['data'], cursor)
+        if validation['status'] != 'ok':
+            abort(validation['code'])
 
-    mysql.connection.commit()
-    cursor.close()
+        mysql.connection.commit()
+        cursor.close()
 
-    return jsonify({
-        'code' : randcoder.get_random_code(config.MAP_CODE_LENGTH),
-        'data' : request.json,
-        'hash' : validation['result']
-    })
+        return jsonify({
+            'code' : randcoder.get_random_code(config.MAP_CODE_LENGTH),
+            'data' : request.json,
+            'hash' : validation['result']
+        })
+    except Exception as err:
+        return jsonify(err)
 
 @app.route('/maps/<string:map_code>', methods=['GET'])
 def download_map(map_code):
