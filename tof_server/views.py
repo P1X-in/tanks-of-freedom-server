@@ -62,7 +62,14 @@ def upload_new_map():
 @app.route('/maps/<string:map_code>', methods=['GET'])
 def download_map(map_code):
     """Method for downloading a map"""
+    cursor = mysql.connection.cursor()
+    map_data = map_model.find_map(map_code, cursor)
+    cursor.close()
+
+    if map_data == None:
+        abort(404)
+
     return jsonify({
         'code' : map_code,
-        'data' : 'dummy'
+        'data' : map_data
     })
