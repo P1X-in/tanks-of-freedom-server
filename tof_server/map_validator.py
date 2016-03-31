@@ -12,7 +12,7 @@ def validate(map_data, cursor):
     previous_code = cursor.fetchone()
 
     if previous_code:
-        return get_result(previous_code[0])
+        return get_result(previous_code[0], md5_hash, True)
 
     sql = "SELECT download_code FROM maps WHERE download_code = %s"
 
@@ -28,13 +28,15 @@ def validate(map_data, cursor):
         else:
             break
 
-    return get_result(code)
+    return get_result(code, md5_hash, False)
 
-def get_result(code):
+def get_result(code, md5_hash, found):
     """Method for creating ok response"""
     return {
         'status' : 'ok',
-        'code' : code
+        'code' : code,
+        'found' : found,
+        'hash' : md5_hash
     }
 
 def get_error(code):
