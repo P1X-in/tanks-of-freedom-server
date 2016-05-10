@@ -5,6 +5,12 @@ CLIENT_VERSIONS = ['0.5.0']
 
 
 def validate(request):
+    for acceptable_version in self.CLIENT_VERSIONS:
+        if request.user_agent.string == 'ToF/' + acceptable_version:
+            return {
+                'status' : 'ok'
+            }
     return {
-        'status' : 'ok'
+        'status' : 'error',
+        'code' : 403
     }

@@ -8,7 +8,8 @@ def index():
     """Server information"""
     return jsonify({
         'server-version' : versioning.SERVER_VERSION,
-        'client-versions' : versioning.CLIENT_VERSIONS
+        'client-versions' : versioning.CLIENT_VERSIONS,
+        'you' : request.user_agent.string
     })
 
 @app.route('/players', methods=['POST'])
