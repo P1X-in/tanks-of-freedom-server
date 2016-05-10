@@ -14,6 +14,10 @@ def index():
 @app.route('/players', methods=['POST'])
 def generate_new_id():
     """Method for generating new unique player ids"""
+    validation = versioning.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
     cursor = mysql.connection.cursor()
     new_pin = randcoder.get_random_code(8)
 
@@ -36,6 +40,10 @@ def generate_new_id():
 @app.route('/maps', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map"""
+    validation = versioning.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
     cursor = mysql.connection.cursor()
 
     validation = player_validator.validate(request, cursor)
@@ -59,9 +67,13 @@ def upload_new_map():
         'code' : validation['code']
     })
 
-@app.route('/maps/<string:map_code>', methods=['GET'])
+@app.route('/maps/<string:map_code>.json', methods=['GET'])
 def download_map(map_code):
     """Method for downloading a map"""
+    validation = versioning.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
     cursor = mysql.connection.cursor()
     map_data = map_model.find_map(map_code, cursor)
     cursor.close()
