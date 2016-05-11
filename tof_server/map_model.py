@@ -23,7 +23,7 @@ def persist_map(map_data, metadata, cursor, player_id):
 def find_map(map_code, cursor):
     """Method for retrieving map data"""
     map_code_sql = "SELECT id FROM maps WHERE download_code = %s"
-    cursor.execute(map_code_sql, (map_code,))
+    cursor.execute(map_code_sql, (map_code.upper(),))
     map_id = cursor.fetchone()
 
     if not map_id:
