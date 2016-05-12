@@ -18,7 +18,7 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 - Flask
 - Virtualenv and PIP (recommended)
 
-## Instalation
+## Deployment
 
 - Create virtualenv for the application
 - clone the source into the new environment
