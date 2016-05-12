@@ -1,6 +1,6 @@
 # Tanks of Freedom Server
 
-![Tanks of Freedom](https://i.imgur.com/Xa66BXO.png)
+![Tanks of Freedom](https://img.itch.io/aW1hZ2UvMTc3MDUvMjI3Mzk3LnBuZw==/original/jFFytG.png)
 
 ## Indie Turn Based Strategy in Isometric Pixel Art
 
