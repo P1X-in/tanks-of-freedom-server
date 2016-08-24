@@ -1,7 +1,7 @@
 """Module for handling server and client versions"""
 
 SERVER_VERSION = '0.1.0'
-CLIENT_VERSIONS = ['0.5.0', '0.5.1']
+CLIENT_VERSIONS = ['0.5.0', '0.5.1', '0.5.2']
 
 
 def validate(request):
