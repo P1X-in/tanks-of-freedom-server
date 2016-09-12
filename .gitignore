@@ -1,4 +1,5 @@
 flask
+venv
 *.pyc
 *.sublime-*
 tof_server/config.py
