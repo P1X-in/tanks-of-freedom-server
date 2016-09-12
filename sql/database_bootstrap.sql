@@ -1,3 +1,4 @@
+START TRANSACTION;
 
 CREATE TABLE players (
     id INT NOT NULL auto_increment,
@@ -23,3 +24,5 @@ CREATE TABLE maps_data (
     json TEXT NOT NULL,
     PRIMARY KEY (map_id)
 );
+
+COMMIT;
