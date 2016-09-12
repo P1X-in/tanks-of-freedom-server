@@ -3,15 +3,6 @@ from tof_server import app, versioning, mysql, randcoder
 from tof_server import player_validator, map_validator, map_model
 from flask import jsonify, request, abort
 
-@app.route('/')
-def index():
-    """Server information"""
-    return jsonify({
-        'server-version' : versioning.SERVER_VERSION,
-        'client-versions' : versioning.CLIENT_VERSIONS,
-        'you' : request.user_agent.string
-    })
-
 @app.route('/players', methods=['POST'])
 def generate_new_id():
     """Method for generating new unique player ids"""
