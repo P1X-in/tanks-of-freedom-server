@@ -14,3 +14,7 @@ def validate(request):
     validation = player_validator.validate(request, cursor)
     if validation['status'] != 'ok':
         return validation
+
+    return {
+        'status' : 'ok'
+    }
