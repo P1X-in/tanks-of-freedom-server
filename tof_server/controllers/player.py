@@ -1,8 +1,7 @@
 """Player account controller blueprint."""
 from flask import Blueprint, jsonify, request, abort
-from tof_server import mysql
 from tof_server.validators import versioning
-from tof_server.utils import randcoder
+from tof_server.models import player
 
 controller_player = Blueprint('controller_player', __name__, template_folder='templates')
 
@@ -14,21 +13,6 @@ def generate_new_id():
     if validation['status'] != 'ok':
         abort(validation['code'])
 
-    cursor = mysql.connection.cursor()
-    new_pin = randcoder.get_random_code(8)
+    new_player_data = player.create_new_player()
 
-    insert_sql = "INSERT INTO players (auto_pin) VALUES (%s)"
-    id_sql = "SELECT LAST_INSERT_ID()"
-
-    cursor.execute(insert_sql, (new_pin,))
-    cursor.execute(id_sql)
-
-    insert_data = cursor.fetchone()
-
-    mysql.connection.commit()
-    cursor.close()
-
-    return jsonify({
-        'id': insert_data[0],
-        'pin': new_pin
-    })
+    return jsonify(new_player_data)
