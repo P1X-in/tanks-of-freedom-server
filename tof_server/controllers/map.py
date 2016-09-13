@@ -1,7 +1,8 @@
 """Maps controller blueprint."""
 from flask import Blueprint, jsonify, request, abort
-from tof_server import versioning, mysql
-from tof_server import player_validator, map_validator, map_model
+from tof_server import mysql
+from tof_server.validators import auth, versioning, map_validator
+from tof_server.models import map_model
 
 controller_map = Blueprint('controller_map', __name__, template_folder='templates')
 
@@ -9,15 +10,11 @@ controller_map = Blueprint('controller_map', __name__, template_folder='template
 @controller_map.route('/maps', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map."""
-    validation = versioning.validate(request)
+    validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
 
     cursor = mysql.connection.cursor()
-
-    validation = player_validator.validate(request, cursor)
-    if validation['status'] != 'ok':
-        abort(validation['code'])
 
     validation = map_validator.validate(request.json['data'], cursor)
     if validation['status'] != 'ok':

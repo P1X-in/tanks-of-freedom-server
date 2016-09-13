@@ -1,6 +1,7 @@
 """Module for validating if map data is correct"""
 import hashlib, json
-from tof_server import randcoder, config
+from tof_server import config
+from tof_server.utils import randcoder
 
 def validate(map_data, cursor):
     """Method for validating if map data is correct"""

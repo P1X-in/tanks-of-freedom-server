@@ -1,6 +1,8 @@
 """Player account controller blueprint."""
 from flask import Blueprint, jsonify, request, abort
-from tof_server import versioning, mysql, randcoder
+from tof_server import mysql
+from tof_server.validators import versioning
+from tof_server.utils import randcoder
 
 controller_player = Blueprint('controller_player', __name__, template_folder='templates')
 

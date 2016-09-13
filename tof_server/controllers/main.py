@@ -1,6 +1,6 @@
 """Main controller blueprint."""
 from flask import Blueprint, jsonify, request
-from tof_server import versioning
+from tof_server.validators import versioning
 
 controller_main = Blueprint('controller_main', __name__, template_folder='templates')
 
