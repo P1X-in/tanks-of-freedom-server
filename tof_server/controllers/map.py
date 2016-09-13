@@ -1,8 +1,7 @@
 """Maps controller blueprint."""
 from flask import Blueprint, abort, jsonify, request
-from tof_server import mysql
-from tof_server.validators import auth, versioning, map_validator
-from tof_server.models import map_model
+from tof_server.validators import auth, versioning
+from tof_server.models import map as map_model
 
 controller_map = Blueprint('controller_map', __name__, template_folder='templates')
 
@@ -14,23 +13,12 @@ def upload_new_map():
     if validation['status'] != 'ok':
         abort(validation['code'])
 
-    cursor = mysql.connection.cursor()
-
-    validation = map_validator.validate(request.json['data'], cursor)
-    if validation['status'] != 'ok':
-        abort(validation['code'])
-
-    if not validation['found']:
-        map_model.persist_map(request.json['data'],
-                              validation,
-                              cursor,
-                              request.json['player_id'])
-
-    mysql.connection.commit()
-    cursor.close()
+    map_code = map_model.persist_map(request.json['data'], request.json['player_id'])
+    if map_code is None:
+        abort(500)
 
     return jsonify({
-        'code': validation['code']
+        'code': map_code
     })
 
 
@@ -41,9 +29,7 @@ def download_map(map_code):
     if validation['status'] != 'ok':
         abort(validation['code'])
 
-    cursor = mysql.connection.cursor()
-    map_data = map_model.find_map(map_code, cursor)
-    cursor.close()
+    map_data = map_model.find_map(map_code)
 
     if map_data is None:
         abort(404)

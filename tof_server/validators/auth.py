@@ -1,7 +1,8 @@
 """Module for handling validation of common requests."""
 from tof_server import mysql
 from tof_server.validators import versioning
-from tof_server.validators import player_validator
+from tof_server.validators import player
+
 
 def validate(request):
     """Method for validating a common request."""
@@ -11,10 +12,10 @@ def validate(request):
 
     cursor = mysql.connection.cursor()
 
-    validation = player_validator.validate(request, cursor)
+    validation = player.validate(request, cursor)
     if validation['status'] != 'ok':
         return validation
 
     return {
-        'status' : 'ok'
+        'status': 'ok'
     }
