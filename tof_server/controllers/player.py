@@ -1,7 +1,7 @@
 """Player account controller blueprint."""
-from flask import Blueprint, jsonify, request, abort
-from tof_server.validators import versioning
+from flask import Blueprint, abort, jsonify, request
 from tof_server.models import player
+from tof_server.validators import versioning
 
 controller_player = Blueprint('controller_player', __name__, template_folder='templates')
 

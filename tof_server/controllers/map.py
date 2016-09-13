@@ -1,5 +1,5 @@
 """Maps controller blueprint."""
-from flask import Blueprint, jsonify, request, abort
+from flask import Blueprint, abort, jsonify, request
 from tof_server import mysql
 from tof_server.validators import auth, versioning, map_validator
 from tof_server.models import map_model
