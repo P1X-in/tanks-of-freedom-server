@@ -9,4 +9,5 @@ app.config.from_pyfile('config.py')
 mysql.init_app(app)
 
 
+from tof_server import errors  # NOQA
 import tof_server.controllers  # NOQA
