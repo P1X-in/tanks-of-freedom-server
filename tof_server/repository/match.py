@@ -16,6 +16,8 @@ MATCH_PLAYER_STATE_WIN = 2
 MATCH_PLAYER_STATE_LOSS = 3
 MATCH_PLAYER_STATE_DISMISSED = 4
 
+MATCH_CODE_ERASED = 'nope'
+
 
 def get_player_visible_matches(player_id):
     """Method for getting non-dismissed matches."""
@@ -27,3 +29,7 @@ def get_player_visible_matches(player_id):
     cursor.close()
 
     return matches
+
+
+def create_new_match(map_id, match_code):
+    """Method for creating new match."""
