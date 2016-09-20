@@ -1,12 +1,13 @@
-"""Module for validating player requests"""
+"""Module for validating player requests."""
+
 
 def validate(request, cursor):
-    """Method for validating request"""
+    """Method for validating request."""
     if not request.json:
         return get_error(400)
-    if not 'player_id' in request.json:
+    if 'player_id' not in request.json:
         return get_error(400)
-    if not 'player_pin' in request.json:
+    if 'player_pin' not in request.json:
         return get_error(400)
 
     sql = "SELECT auto_pin FROM players WHERE id = %s"
@@ -17,13 +18,13 @@ def validate(request, cursor):
         return get_error(403)
 
     return {
-        'status' : 'ok'
+        'status': 'ok'
     }
 
 
 def get_error(code):
-    """Method for generating error response"""
+    """Method for generating error response."""
     return {
-        'status' : 'error',
-        'code' : code
+        'status': 'error',
+        'code': code
     }

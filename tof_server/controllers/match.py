@@ -1,6 +1,7 @@
 """Matches controller blueprint."""
 from flask import Blueprint, jsonify, request, abort
 from tof_server.validators import auth
+from tof_server.models import match as matches_model
 
 controller_match = Blueprint('controller_match', __name__, template_folder='templates')
 
@@ -12,8 +13,10 @@ def get_player_matches():
     if validation['status'] != 'ok':
         abort(validation['code'])
 
+    player_id = request.json['player_id']
+
     return jsonify({
-        'test': 'ok'
+        'matches': matches_model.get_player_matches(player_id)
     })
 
 
