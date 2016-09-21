@@ -31,5 +31,21 @@ def get_player_visible_matches(player_id):
     return matches
 
 
-def create_new_match(map_id, match_code):
+def create_new_match(map_id, join_code):
     """Method for creating new match."""
+    cursor = mysql.connection.cursor()
+    sql = """INSERT INTO matches
+            (join_code, map_id, status)
+            VALUES (%s, %s, %s)"""
+
+    cursor.execute(sql, (join_code, map_id, MATCH_STATE_NEW))
+
+    last_id_sql = "SELECT LAST_INSERT_ID()"
+    cursor.execute(last_id_sql)
+
+    last_id = cursor.fetchone()
+
+    mysql.connection.commit()
+    cursor.close()
+
+    return last_id[0]
