@@ -23,7 +23,7 @@ def get_player_matches():
 
 @controller_match.route('/matches', methods=['POST'])
 def create_new_match():
-    """Method for downloading player active matches."""
+    """Method for creating new match."""
     validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
@@ -48,7 +48,7 @@ def create_new_match():
 
 @controller_match.route('/match/<string:match_code>.json', methods=['GET'])
 def get_match_details(match_code):
-    """Method for downloading player active matches."""
+    """Method for downloading match status for joining."""
     match_details = match_model.get_match_details(match_code)
 
     if match_details is None:
@@ -59,7 +59,7 @@ def get_match_details(match_code):
 
 @controller_match.route('/match/<string:match_code>.json', methods=['POST'])
 def get_match_state(match_code):
-    """Method for downloading player active matches."""
+    """Method for downloading match state for performing turn."""
     validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
@@ -71,7 +71,7 @@ def get_match_state(match_code):
 
 @controller_match.route('/match/join/<string:match_code>.json', methods=['POST'])
 def join_match(match_code):
-    """Method for downloading player active matches."""
+    """Method for joining a match."""
     validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
@@ -83,7 +83,7 @@ def join_match(match_code):
 
 @controller_match.route('/match/turn/<string:match_code>.json', methods=['POST'])
 def update_match_state(match_code):
-    """Method for downloading player active matches."""
+    """Method for updating a match state."""
     validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
