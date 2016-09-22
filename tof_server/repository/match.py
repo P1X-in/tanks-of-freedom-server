@@ -97,3 +97,15 @@ def get_players_for_match(match_id):
     cursor.close()
 
     return players
+
+
+def get_player_in_match(player_id, match_id):
+    """Get information about player in a match."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT side, status FROM match_players WHERE match_id = %s AND player_id = %s"
+
+    cursor.execute(sql, (match_id, player_id))
+    player = cursor.fetchone()
+    cursor.close()
+
+    return player

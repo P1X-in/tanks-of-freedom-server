@@ -64,9 +64,14 @@ def get_match_state(match_code):
     if validation['status'] != 'ok':
         abort(validation['code'])
 
-    return jsonify({
-        'test': 'ok'
-    })
+    player_id = request.json['player_id']
+
+    if not match_validator.is_in_match(player_id, match_code):
+        abort(403)
+
+    match_state = match_model.get_match_state(match_code)
+
+    return jsonify(match_state)
 
 
 @controller_match.route('/match/join/<string:match_code>.json', methods=['POST'])

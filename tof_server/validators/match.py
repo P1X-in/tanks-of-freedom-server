@@ -28,3 +28,16 @@ def is_map_available(map_code):
 def is_side_valid(side):
     """Method for checkign if side value is valid."""
     return side in [match_repository.MATCH_SIDE_BLUE, match_repository.MATCH_SIDE_RED]
+
+
+def is_in_match(player_id, match_code):
+    """Method for verifying if player is in a match."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return False
+
+    player_details = match_repository.get_player_in_match(player_id, match_details[0])
+    if not player_details:
+        return False
+
+    return True

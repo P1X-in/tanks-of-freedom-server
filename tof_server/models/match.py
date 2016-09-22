@@ -64,3 +64,8 @@ def get_available_side_for_match(match_id):
         return match_repository.MATCH_SIDE_RED
 
     return match_repository.MATCH_SIDE_BLUE
+
+
+def get_match_state(match_code):
+    """Method for getting state of a match."""
+    return {}
