@@ -21,7 +21,7 @@ def find_code_by_hash(md5_hash):
 def find_id_by_code(code):
     """Method for getting map id based on it's code."""
     cursor = mysql.connection.cursor()
-    sql = "SELECT download_code FROM maps WHERE download_code = %s"
+    sql = "SELECT id FROM maps WHERE download_code = %s"
 
     cursor.execute(sql, (code,))
     previous_code = cursor.fetchone()
