@@ -39,10 +39,10 @@ def create_new_match():
     if not match_validator.is_side_valid(side):
         abort(400)
 
-    new_match_id = match_model.create_new_match(player_id, side, map_code)
+    new_match_code = match_model.create_new_match(player_id, side, map_code)
 
     return jsonify({
-        'match_id': new_match_id
+        'match_code': new_match_code
     })
 
 
