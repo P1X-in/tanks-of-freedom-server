@@ -23,3 +23,8 @@ def is_map_available(map_code):
         return False
 
     return True
+
+
+def is_side_valid(side):
+    """Method for checkign if side value is valid."""
+    return side in [map_repository.MATCH_SIDE_BLUE, map_repository.MATCH_SIDE_RED]

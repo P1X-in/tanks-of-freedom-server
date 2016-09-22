@@ -30,14 +30,19 @@ def create_new_match():
 
     player_id = request.json['player_id']
     map_code = request.json['map_code']
+    side = request.json['side']
 
     if not match_validator.are_slots_available(player_id):
         abort(403)
     if not match_validator.is_map_available(map_code):
         abort(400)
+    if not match_validator.is_side_valid(side):
+        abort(400)
+
+    new_match_id = match_model.create_new_match(player_id, side, map_code)
 
     return jsonify({
-        'test': 'ok'
+        'match_id': new_match_id
     })
 
 

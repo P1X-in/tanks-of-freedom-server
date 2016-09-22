@@ -49,3 +49,15 @@ def create_new_match(map_id, join_code):
     cursor.close()
 
     return last_id[0]
+
+
+def join_player_to_match(match_id, player_id, side):
+    """Method for joining a player to a match."""
+    cursor = mysql.connection.cursor()
+    sql = """INSERT INTO match_players
+            (match_id, player_id, side, status)
+            VALUES (%s, %s, %s, %s)"""
+    cursor.execute(sql, (match_id, player_id, side, side))
+
+    mysql.connection.commit()
+    cursor.close()
