@@ -49,9 +49,12 @@ def create_new_match():
 @controller_match.route('/match/<string:match_code>.json', methods=['GET'])
 def get_match_details(match_code):
     """Method for downloading player active matches."""
-    return jsonify({
-        'test': 'ok'
-    })
+    match_details = match_model.get_match_details(match_code)
+
+    if match_details is None:
+        abort(404)
+
+    return jsonify(match_details)
 
 
 @controller_match.route('/match/<string:match_code>.json', methods=['POST'])

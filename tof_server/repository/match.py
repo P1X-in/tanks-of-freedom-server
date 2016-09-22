@@ -61,3 +61,39 @@ def join_player_to_match(match_id, player_id, side):
 
     mysql.connection.commit()
     cursor.close()
+
+
+def get_match_info(match_id):
+    """Method for getting match details for listing."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT join_code, status, map_id FROM matches WHERE id = %s"
+
+    cursor.execute(sql, (match_id,))
+    match_data = cursor.fetchone()
+    cursor.close()
+
+    return match_data
+
+
+def get_match_info_by_code(join_code):
+    """Method for getting match details for join query."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT id, status, map_id FROM matches WHERE join_code = %s"
+
+    cursor.execute(sql, (join_code,))
+    match_data = cursor.fetchone()
+    cursor.close()
+
+    return match_data
+
+
+def get_players_for_match(match_id):
+    """Method for getting list of players in a match."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT player_id, side, status FROM match_players WHERE match_id = %s"
+
+    cursor.execute(sql, (match_id,))
+    players = cursor.fetchall()
+    cursor.close()
+
+    return players

@@ -8,7 +8,21 @@ MAP_CODE_LENGTH = 5
 
 def get_player_matches(player_id):
     """Method for getting list of player matches with details."""
-    return []
+    visible_matches = match_repository.get_player_visible_matches(player_id)
+
+    visible_matches_data = []
+    for player_match in visible_matches:
+        match_details = match_repository.get_match_info(player_match[0])
+        map_code = map_repository.find_code_by_id(match_details[2])
+        visible_matches_data.append({
+            'join_code': match_details[0],
+            'match_status': match_details[1],
+            'side': player_match[1],
+            'player_status': player_match[2],
+            'map_code': map_code
+        })
+
+    return visible_matches_data
 
 
 def create_new_match(host_id, host_side, map_code):
@@ -21,3 +35,32 @@ def create_new_match(host_id, host_side, map_code):
     match_repository.join_player_to_match(new_match_id, host_id, host_side)
 
     return new_match_code
+
+
+def get_match_details(match_code):
+    """Method for getting details about the match."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return None
+
+    map_code = map_repository.find_code_by_id(match_details[2])
+    available_side = get_available_side_for_match(match_details[0])
+
+    return {
+        'join_code': match_code,
+        'match_status': match_details[1],
+        'map_code': map_code,
+        'available_side': available_side
+    }
+
+
+def get_available_side_for_match(match_id):
+    """Method for getting available side in a match."""
+    players = match_repository.get_players_for_match(match_id)
+    if len(players) != 1:
+        return None
+
+    if players[0][1] == match_repository.MATCH_SIDE_BLUE:
+        return match_repository.MATCH_SIDE_RED
+
+    return match_repository.MATCH_SIDE_BLUE

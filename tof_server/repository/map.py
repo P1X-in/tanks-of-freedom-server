@@ -24,11 +24,26 @@ def find_id_by_code(code):
     sql = "SELECT id FROM maps WHERE download_code = %s"
 
     cursor.execute(sql, (code,))
-    previous_code = cursor.fetchone()
+    map_id = cursor.fetchone()
     cursor.close()
 
-    if previous_code:
-        return previous_code[0]
+    if map_id:
+        return map_id[0]
+
+    return None
+
+
+def find_code_by_id(map_id):
+    """Method for getting map code based on it's id."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT download_code FROM maps WHERE id = %s"
+
+    cursor.execute(sql, (map_id,))
+    code = cursor.fetchone()
+    cursor.close()
+
+    if code:
+        return code[0]
 
     return None
 
