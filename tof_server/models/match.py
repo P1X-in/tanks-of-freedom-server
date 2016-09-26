@@ -34,6 +34,7 @@ def create_new_match(host_id, host_side, map_code):
 
     new_match_id = match_repository.create_new_match(map_id, new_match_code)
     match_repository.join_player_to_match(new_match_id, host_id, host_side)
+    match_repository.create_empty_match_state(new_match_id)
 
     return new_match_code
 
@@ -99,5 +100,18 @@ def add_player_to_match(player_id, match_code):
     available_side = _get_available_side_for_match(match_id)
 
     match_repository.join_player_to_match(match_id, player_id, available_side)
+
+    return True
+
+
+def update_match_state(match_code, turn_data):
+    """Method for updating match turn data."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return False
+
+    match_id = match_details[0]
+    turn_data = json.dumps(turn_data)
+    match_repository.update_match_state(match_id, turn_data)
 
     return True

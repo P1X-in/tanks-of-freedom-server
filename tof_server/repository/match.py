@@ -51,6 +51,21 @@ def create_new_match(map_id, join_code):
     return last_id[0]
 
 
+def create_empty_match_state(match_id):
+    """Method for creating empty match state."""
+    cursor = mysql.connection.cursor()
+    sql = """INSERT INTO match_states
+            (match_id, json)
+            VALUES (%s, %s)"""
+
+    initial_json = "{}"
+
+    cursor.execute(sql, (match_id, initial_json))
+
+    mysql.connection.commit()
+    cursor.close()
+
+
 def join_player_to_match(match_id, player_id, side):
     """Method for joining a player to a match."""
     cursor = mysql.connection.cursor()
@@ -124,3 +139,12 @@ def get_match_state(match_id):
         return "{}"
 
     return state[0]
+
+
+def update_match_state(match_id, json_data):
+    """Method for updating match state."""
+    cursor = mysql.connection.cursor()
+    sql = "UPDATE match_states SET json = %s WHERE match_id = %s"
+    cursor.execute(sql, (json_data, match_id))
+    mysql.connection.commit()
+    cursor.close()

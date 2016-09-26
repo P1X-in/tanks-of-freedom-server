@@ -1,4 +1,5 @@
 """Module for validating match requests."""
+import json
 from tof_server.repository import match as match_repository
 from tof_server.repository import map as map_repository
 
@@ -51,6 +52,23 @@ def is_match_joinable(match_code):
 
     players = match_repository.get_players_for_match(match_details[0])
     if len(players) != 1:
+        return False
+
+    return True
+
+
+def verify_turn_data(last_turn_data, new_turn_data):
+    """Method for checking if new turn data does not cheat too much."""
+    if 'turn_end' not in last_turn_data:
+        return True
+
+    end_of_last_turn = last_turn_data['turn_end']
+    start_of_new_turn = new_turn_data['turn_start']
+
+    end_data = json.dumps(end_of_last_turn)
+    start_data = json.dumps(start_of_new_turn)
+
+    if end_data != start_data:
         return False
 
     return True
