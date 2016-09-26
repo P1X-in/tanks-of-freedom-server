@@ -81,8 +81,20 @@ def join_match(match_code):
     if validation['status'] != 'ok':
         abort(validation['code'])
 
+    player_id = request.json['player_id']
+
+    if not match_validator.are_slots_available(player_id):
+        abort(403)
+    if match_validator.is_in_match(player_id, match_code):
+        abort(400)
+    if not match_validator.is_match_joinable(match_code):
+        abort(403)
+
+    if not match_model.add_player_to_match(player_id, match_code):
+        abort(500)
+
     return jsonify({
-        'test': 'ok'
+        'status': 'ok'
     })
 
 

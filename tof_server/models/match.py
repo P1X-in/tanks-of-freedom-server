@@ -1,4 +1,5 @@
 """Module for operations on matches."""
+import json
 from tof_server.repository import map as map_repository
 from tof_server.repository import match as match_repository
 from tof_server.utils import randcoder
@@ -44,7 +45,7 @@ def get_match_details(match_code):
         return None
 
     map_code = map_repository.find_code_by_id(match_details[2])
-    available_side = get_available_side_for_match(match_details[0])
+    available_side = _get_available_side_for_match(match_details[0])
 
     return {
         'join_code': match_code,
@@ -54,7 +55,7 @@ def get_match_details(match_code):
     }
 
 
-def get_available_side_for_match(match_id):
+def _get_available_side_for_match(match_id):
     """Method for getting available side in a match."""
     players = match_repository.get_players_for_match(match_id)
     if len(players) != 1:
@@ -68,4 +69,35 @@ def get_available_side_for_match(match_id):
 
 def get_match_state(match_code):
     """Method for getting state of a match."""
-    return {}
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return None
+
+    match_id = match_details[0]
+    match_status = match_details[1]
+    map_id = match_details[2]
+
+    map_code = map_repository.find_code_by_id(map_id)
+    match_state_data = match_repository.get_match_state(match_id)
+    match_state_data = json.loads(match_state_data)
+
+    return {
+        'join_code': match_code,
+        'match_status': match_status,
+        'map_code': map_code,
+        'data': match_state_data
+    }
+
+
+def add_player_to_match(player_id, match_code):
+    """Method for joining new player to a match."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return False
+
+    match_id = match_details[0]
+    available_side = _get_available_side_for_match(match_id)
+
+    match_repository.join_player_to_match(match_id, player_id, available_side)
+
+    return True

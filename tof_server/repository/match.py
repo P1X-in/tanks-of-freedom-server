@@ -109,3 +109,18 @@ def get_player_in_match(player_id, match_id):
     cursor.close()
 
     return player
+
+
+def get_match_state(match_id):
+    """Get state of a match."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT json FROM match_states WHERE match_id = %s"
+
+    cursor.execute(sql, (match_id, ))
+    state = cursor.fetchone()
+    cursor.close()
+
+    if not state:
+        return "{}"
+
+    return state[0]

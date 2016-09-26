@@ -41,3 +41,16 @@ def is_in_match(player_id, match_code):
         return False
 
     return True
+
+
+def is_match_joinable(match_code):
+    """Method for checking if match can be joined."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return False
+
+    players = match_repository.get_players_for_match(match_details[0])
+    if len(players) != 1:
+        return False
+
+    return True
