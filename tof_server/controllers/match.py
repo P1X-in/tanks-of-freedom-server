@@ -57,6 +57,23 @@ def get_match_details(match_code):
     return jsonify(match_details)
 
 
+@controller_match.route('/match/status/<string:match_code>.json', methods=['GET'])
+def get_player_match_status(match_code):
+    """Method for downloading match status for joining."""
+    validation = auth.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
+    player_id = request.json['player_id']
+
+    if not match_validator.is_in_match(player_id, match_code):
+        abort(403)
+
+    status = match_model.get_player_status_in_match(match_code, player_id)
+
+    return jsonify(status)
+
+
 @controller_match.route('/match/<string:match_code>.json', methods=['POST'])
 def get_match_state(match_code):
     """Method for downloading match state for performing turn."""

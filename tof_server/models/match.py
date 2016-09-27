@@ -62,6 +62,25 @@ def get_match_details(match_code):
     }
 
 
+def get_player_status_in_match(match_code, player_id):
+    """Method for getting status of a player in match."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+    if not match_details:
+        return None
+
+    match_id = match_details[0]
+    map_code = map_repository.find_code_by_id(match_details[2])
+    player_data = match_repository.get_player_in_match(player_id, match_id)
+
+    return {
+        'join_code': match_code,
+        'match_status': match_details[1],
+        'map_code': map_code,
+        'player_side': player_data[0]
+        'player_status': player_data[1]
+    }
+
+
 def _get_available_side_for_match(match_id):
     """Method for getting available side in a match."""
     players = match_repository.get_players_for_match(match_id)
