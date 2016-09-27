@@ -3,7 +3,7 @@ from tof_server import mysql
 
 
 MATCH_STATE_NEW = 0
-MATCH_STATE_STARTED = 1
+MATCH_STATE_IN_PROGRESS = 1
 MATCH_STATE_ENDED = 2
 MATCH_STATE_FORFEIT = 3
 
@@ -146,5 +146,32 @@ def update_match_state(match_id, json_data):
     cursor = mysql.connection.cursor()
     sql = "UPDATE match_states SET json = %s WHERE match_id = %s"
     cursor.execute(sql, (json_data, match_id))
+    mysql.connection.commit()
+    cursor.close()
+
+
+def update_match_status(match_id, status):
+    """Method for updating match status."""
+    cursor = mysql.connection.cursor()
+    sql = "UPDATE matches SET status = %s WHERE id = %s"
+    cursor.execute(sql, (status, match_id))
+    mysql.connection.commit()
+    cursor.close()
+
+
+def update_player_status(match_id, player_id, status):
+    """Method for updating player status."""
+    cursor = mysql.connection.cursor()
+    sql = "UPDATE match_players SET status = %s WHERE match_id = %s AND player_id = %s"
+    cursor.execute(sql, (status, match_id, player_id))
+    mysql.connection.commit()
+    cursor.close()
+
+
+def update_other_players_status(match_id, player_id, status):
+    """Method for updating player status."""
+    cursor = mysql.connection.cursor()
+    sql = "UPDATE match_players SET status = %s WHERE match_id = %s AND player_id <> %s"
+    cursor.execute(sql, (status, match_id, player_id))
     mysql.connection.commit()
     cursor.close()

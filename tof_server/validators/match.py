@@ -50,6 +50,9 @@ def is_match_joinable(match_code):
     if not match_details:
         return False
 
+    if match_details[1] != match_repository.MATCH_STATE_NEW:
+        return False
+
     players = match_repository.get_players_for_match(match_details[0])
     if len(players) != 1:
         return False

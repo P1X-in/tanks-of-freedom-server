@@ -31,6 +31,12 @@ def create_new_match(host_id, host_side, map_code):
     map_id = map_repository.find_id_by_code(map_code)
 
     new_match_code = randcoder.get_random_code(MAP_CODE_LENGTH)
+    while True:
+        match_details = match_repository.get_match_info_by_code(new_match_code)
+        if not match_details:
+            break
+
+        new_match_code = randcoder.get_random_code(MAP_CODE_LENGTH)
 
     new_match_id = match_repository.create_new_match(map_id, new_match_code)
     match_repository.join_player_to_match(new_match_id, host_id, host_side)
@@ -101,6 +107,8 @@ def add_player_to_match(player_id, match_code):
 
     match_repository.join_player_to_match(match_id, player_id, available_side)
 
+    match_repository.update_match_status(match_id, match_repository.MATCH_STATE_IN_PROGRESS)
+
     return True
 
 
@@ -115,3 +123,17 @@ def update_match_state(match_code, turn_data):
     match_repository.update_match_state(match_id, turn_data)
 
     return True
+
+
+def abandon_match(match_code, player_id):
+    """Method for abandoning a match."""
+    match_details = match_repository.get_match_info_by_code(match_code)
+
+    match_id = match_details[0]
+    match_status = match_details[1]
+
+    if match_status == match_repository.MATCH_STATE_IN_PROGRESS:
+        match_repository.update_match_status(match_id, match_repository.MATCH_STATE_FORFEIT)
+        match_repository.update_other_players_status(match_id, player_id, match_repository.MATCH_PLAYER_STATE_WIN)
+
+    match_repository.update_player_status(match_id, player_id, match_repository.MATCH_PLAYER_STATE_DISMISSED)

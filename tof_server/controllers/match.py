@@ -123,3 +123,22 @@ def update_match_state(match_code):
     match_state = match_model.get_match_state(match_code)
 
     return jsonify(match_state)
+
+
+@controller_match.route('/match/abandon/<string:match_code>.json', methods=['POST'])
+def abandon_match(match_code):
+    """Method for abandoning a match."""
+    validation = auth.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
+    player_id = request.json['player_id']
+
+    if match_validator.is_in_match(player_id, match_code):
+        abort(403)
+
+    match_model.abandon_match(match_code, player_id)
+
+    return jsonify({
+        'status': 'ok'
+    })
