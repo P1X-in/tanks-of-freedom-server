@@ -76,7 +76,7 @@ def get_player_status_in_match(match_code, player_id):
         'join_code': match_code,
         'match_status': match_details[1],
         'map_code': map_code,
-        'player_side': player_data[0]
+        'player_side': player_data[0],
         'player_status': player_data[1]
     }
 
