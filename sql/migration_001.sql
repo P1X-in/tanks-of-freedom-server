@@ -1,5 +1,12 @@
 START TRANSACTION;
 
+CREATE TABLE versioning (
+    version_number INT NOT NULL,
+    PRIMARY KEY (version_number)
+);
+
+INSERT INTO versioning (version_number) VALUES (1);
+
 CREATE TABLE matches (
     id INT NOT NULL auto_increment,
     creation_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
