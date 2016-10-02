@@ -59,7 +59,7 @@ def get_match_details(match_code):
 
 @controller_match.route('/match/status/<string:match_code>.json', methods=['GET'])
 def get_player_match_status(match_code):
-    """Method for downloading match status for joining."""
+    """Method for downloading player status."""
     validation = auth.validate(request)
     if validation['status'] != 'ok':
         abort(validation['code'])
