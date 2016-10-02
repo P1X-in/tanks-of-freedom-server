@@ -154,5 +154,7 @@ def abandon_match(match_code, player_id):
     if match_status == match_repository.MATCH_STATE_IN_PROGRESS:
         match_repository.update_match_status(match_id, match_repository.MATCH_STATE_FORFEIT)
         match_repository.update_other_players_status(match_id, player_id, match_repository.MATCH_PLAYER_STATE_WIN)
+    elif match_status == match_repository.MATCH_STATE_NEW:
+        match_repository.update_match_status(match_id, match_repository.MATCH_STATE_ENDED)
 
     match_repository.update_player_status(match_id, player_id, match_repository.MATCH_PLAYER_STATE_DISMISSED)
