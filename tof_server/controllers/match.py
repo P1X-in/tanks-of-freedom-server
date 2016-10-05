@@ -151,7 +151,7 @@ def abandon_match(match_code):
 
     player_id = request.json['player_id']
 
-    if match_validator.is_in_match(player_id, match_code):
+    if not match_validator.is_in_match(player_id, match_code):
         abort(403)
 
     match_model.abandon_match(match_code, player_id)
