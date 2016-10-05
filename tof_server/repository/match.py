@@ -22,9 +22,9 @@ MATCH_CODE_ERASED = 'nope'
 def get_player_visible_matches(player_id):
     """Method for getting non-dismissed matches."""
     cursor = mysql.connection.cursor()
-    sql = "SELECT match_id, side, status FROM match_players WHERE player_id = %s"
+    sql = "SELECT match_id, side, status FROM match_players WHERE player_id = %s AND status <> %s"
 
-    cursor.execute(sql, (player_id,))
+    cursor.execute(sql, (player_id, MATCH_PLAYER_STATE_DISMISSED))
     matches = cursor.fetchall()
     cursor.close()
 
