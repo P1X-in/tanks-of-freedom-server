@@ -93,7 +93,7 @@ def _get_available_side_for_match(match_id):
     return match_repository.MATCH_SIDE_BLUE
 
 
-def get_match_state(match_code):
+def get_match_state(match_code, player_id):
     """Method for getting state of a match."""
     match_details = match_repository.get_match_info_by_code(match_code)
     if not match_details:
@@ -106,12 +106,14 @@ def get_match_state(match_code):
     map_code = map_repository.find_code_by_id(map_id)
     match_state_data = match_repository.get_match_state(match_id)
     match_state_data = json.loads(match_state_data)
+    player_data = match_repository.get_player_in_match(player_id, match_id)
 
     return {
         'join_code': match_code,
         'match_status': match_status,
         'map_code': map_code,
-        'data': match_state_data
+        'data': match_state_data,
+        'player_status': player_data[1]
     }
 
 

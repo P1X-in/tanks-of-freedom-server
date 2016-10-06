@@ -86,7 +86,7 @@ def get_match_state(match_code):
     if not match_validator.is_in_match(player_id, match_code):
         abort(403)
 
-    match_state = match_model.get_match_state(match_code)
+    match_state = match_model.get_match_state(match_code, player_id)
 
     return jsonify(match_state)
 
