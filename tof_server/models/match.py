@@ -113,7 +113,8 @@ def get_match_state(match_code, player_id):
         'match_status': match_status,
         'map_code': map_code,
         'data': match_state_data,
-        'player_status': player_data[1]
+        'player_status': player_data[1],
+        'player_side': player_data[0]
     }
 
 
