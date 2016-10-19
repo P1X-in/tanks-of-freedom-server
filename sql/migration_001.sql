@@ -27,7 +27,7 @@ CREATE TABLE match_players (
 
 CREATE TABLE match_states (
     match_id INT NOT NULL,
-    json TEXT DEFAULT NULL,
+    json LONGTEXT DEFAULT NULL,
     PRIMARY KEY (match_id)
 );
 

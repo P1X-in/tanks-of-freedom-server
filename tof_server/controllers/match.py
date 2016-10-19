@@ -127,17 +127,17 @@ def update_match_state(match_code):
     if not match_validator.is_in_match(player_id, match_code):
         abort(403)
 
-    match_state = match_model.get_match_state(match_code)
+    match_state = match_model.get_match_state(match_code, player_id)
 
     turn_data = request.json['turn_data']
 
     if not match_validator.verify_turn_data(match_state['data'], turn_data):
         abort(400)
 
-    if not match_model.update_match_state(match_code, turn_data):
+    if not match_model.update_match_state(match_code, turn_data, player_id):
         abort(500)
 
-    match_state = match_model.get_match_state(match_code)
+    match_state = match_model.get_match_state(match_code, player_id)
 
     return jsonify(match_state)
 

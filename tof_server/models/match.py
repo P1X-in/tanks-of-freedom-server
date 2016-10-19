@@ -134,7 +134,7 @@ def add_player_to_match(player_id, match_code):
     return True
 
 
-def update_match_state(match_code, turn_data):
+def update_match_state(match_code, turn_data, player_id):
     """Method for updating match turn data."""
     match_details = match_repository.get_match_info_by_code(match_code)
     if not match_details:
@@ -144,7 +144,19 @@ def update_match_state(match_code, turn_data):
     turn_data = json.dumps(turn_data)
     match_repository.update_match_state(match_id, turn_data)
 
+    _update_players_state(
+        match_id,
+        player_id,
+        match_repository.MATCH_PLAYER_STATE_INACTIVE,
+        match_repository.MATCH_PLAYER_STATE_ACTIVE)
+
     return True
+
+
+def _update_players_state(match_id, player_id, that_player_state, other_player_state):
+    """Method for switching active player in match."""
+    match_repository.update_other_players_status(match_id, player_id, other_player_state)
+    match_repository.update_player_status(match_id, player_id, that_player_state)
 
 
 def abandon_match(match_code, player_id):
