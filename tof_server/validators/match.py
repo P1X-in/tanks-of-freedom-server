@@ -62,11 +62,11 @@ def is_match_joinable(match_code):
 
 def verify_turn_data(last_turn_data, new_turn_data):
     """Method for checking if new turn data does not cheat too much."""
-    if 'turn_end' not in last_turn_data:
+    if 'final_state' not in last_turn_data:
         return True
 
-    end_of_last_turn = last_turn_data['turn_end']
-    start_of_new_turn = new_turn_data['turn_start']
+    end_of_last_turn = last_turn_data['final_state']
+    start_of_new_turn = new_turn_data['initial_state']
 
     end_data = json.dumps(end_of_last_turn)
     start_data = json.dumps(start_of_new_turn)
