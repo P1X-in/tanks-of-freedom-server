@@ -156,6 +156,7 @@ def update_match_state(match_code, turn_data, player_id):
             player_id,
             match_repository.MATCH_PLAYER_STATE_WIN,
             match_repository.MATCH_PLAYER_STATE_LOSS)
+        match_repository.update_match_status(match_id, match_repository.MATCH_STATE_ENDED)
 
     return True
 
