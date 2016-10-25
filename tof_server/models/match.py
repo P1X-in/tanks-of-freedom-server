@@ -150,6 +150,13 @@ def update_match_state(match_code, turn_data, player_id):
         match_repository.MATCH_PLAYER_STATE_INACTIVE,
         match_repository.MATCH_PLAYER_STATE_ACTIVE)
 
+    if 'win' in turn_data and turn_data['win']:
+        _update_players_state(
+            match_id,
+            player_id,
+            match_repository.MATCH_PLAYER_STATE_WIN,
+            match_repository.MATCH_PLAYER_STATE_LOSS)
+
     return True
 
 
