@@ -1,6 +1,9 @@
 # Tanks of Freedom Server
 ## Changelog
 
+### 0.3.0-beta
+- added missing match code index
+
 ### 0.2.0-beta
 - updated database schema
 - views replaced with blueprints
