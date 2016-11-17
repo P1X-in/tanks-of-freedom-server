@@ -2,6 +2,8 @@
 import json
 from tof_server import mysql
 
+MAPS_PER_PAGE = 20
+
 
 def find_code_by_hash(md5_hash):
     """Method for finding a map code by its hash."""
@@ -90,6 +92,24 @@ def find_data_by_code(code):
     return None
 
 
+def find_data_by_ids(ids):
+    """Method for getting map data by list of ids."""
+    ids = ", ".join(str(x) for x in ids)
+
+    cursor = mysql.connection.cursor()
+    map_data_sql = "SELECT map_id, json FROM maps_data WHERE map_id IN (" + ids + ")"
+    cursor.execute(map_data_sql)
+    maps_data = cursor.fetchall()
+    cursor.close()
+
+    result = {}
+
+    for map_data in maps_data:
+        result[map_data[0]] = map_data[1]
+
+    return result
+
+
 def find_metadata_by_code(code):
     """Method for getting map metadata by code."""
     cursor = mysql.connection.cursor()
@@ -103,8 +123,35 @@ def find_metadata_by_code(code):
         return {
             'id': map_id[0],
             'created': map_id[1],
-            'author': map_id[0],
+            'author': map_id[2],
             'code': code
         }
 
     return None
+
+
+def find_latest_maps_metadata(offset_id):
+    """Method for getting latest maps metadata."""
+    cursor = mysql.connection.cursor()
+
+    if offset_id > -1:
+        sql = "SELECT id, download_code, creation_time, player_id FROM maps WHERE id < %s ORDER BY id DESC LIMIT %s"
+        cursor.execute(sql, (offset_id, MAPS_PER_PAGE))
+    else:
+        sql = "SELECT id, download_code, creation_time, player_id FROM maps ORDER BY id DESC LIMIT %s"
+        cursor.execute(sql, (MAPS_PER_PAGE,))
+
+    maps_metadata = cursor.fetchall()
+    cursor.close()
+
+    result = []
+
+    for map_metadata in maps_metadata:
+        result.append({
+            'id': map_metadata[0],
+            'code': map_metadata[1],
+            'created': map_metadata[2],
+            'author': map_metadata[3],
+        })
+
+    return result

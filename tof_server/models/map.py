@@ -36,6 +36,32 @@ def find_map_metadata(map_code):
     return map_repository.find_metadata_by_code(map_code)
 
 
+def find_maps_page(offset_id=-1):
+    """Method for getting list of maps for page."""
+    maps_metadata = map_repository.find_latest_maps_metadata(offset_id)
+
+    maps_ids = [map_metadata['id'] for map_metadata in maps_metadata]
+
+    maps_data = map_repository.find_data_by_ids(maps_ids)
+
+    result = []
+    for map_metadata in maps_metadata:
+        if map_metadata['id'] in maps_data:
+            map_raw_data = maps_data[map_metadata['id']]
+            try:
+                map_data = json.loads(map_raw_data)
+                map_metadata['name'] = map_data['name']
+                map_metadata['error'] = False
+            except ValueError:
+                map_metadata['name'] = "ERR"
+                map_metadata['error'] = True
+        else:
+            map_metadata['name'] = ""
+        result.append(map_metadata)
+
+    return result
+
+
 def _get_code_for_map(map_hash):
     """Method for determining code for a map."""
     existing_map_code = map_repository.find_code_by_hash(map_hash)
