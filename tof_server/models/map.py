@@ -31,6 +31,11 @@ def find_map(map_code):
     return json.loads(map_data)
 
 
+def find_map_metadata(map_code):
+    """Method for retrieving map metadata."""
+    return map_repository.find_metadata_by_code(map_code)
+
+
 def _get_code_for_map(map_hash):
     """Method for determining code for a map."""
     existing_map_code = map_repository.find_code_by_hash(map_hash)

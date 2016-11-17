@@ -38,3 +38,20 @@ def download_map(map_code):
         'code': map_code,
         'data': map_data
     })
+
+
+@controller_map.route('/maps/metadata/<string:map_code>.json', methods=['GET'])
+def download_map_metadata(map_code):
+    """Method for downloading a map metadata."""
+    map_data = map_model.find_map(map_code)
+    if map_data is None:
+        abort(404)
+
+    map_metadata = map_model.find_map_metadata(map_code)
+
+    if 'name' in map_data:
+        map_metadata['name'] = map_data['name']
+    else:
+        map_metadata['name'] = ''
+
+    return jsonify(map_metadata)

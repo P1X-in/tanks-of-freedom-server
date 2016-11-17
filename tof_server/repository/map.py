@@ -88,3 +88,23 @@ def find_data_by_code(code):
         return map_data[0]
 
     return None
+
+
+def find_metadata_by_code(code):
+    """Method for getting map metadata by code."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT id, creation_time, player_id FROM maps WHERE download_code = %s"
+
+    cursor.execute(sql, (code,))
+    map_id = cursor.fetchone()
+    cursor.close()
+
+    if map_id:
+        return {
+            'id': map_id[0],
+            'created': map_id[1],
+            'author': map_id[0],
+            'code': code
+        }
+
+    return None
