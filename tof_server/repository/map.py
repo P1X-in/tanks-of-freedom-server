@@ -155,3 +155,16 @@ def find_latest_maps_metadata(offset_id):
         })
 
     return result
+
+
+def get_all_codes():
+    """Method for getting all map codes."""
+    cursor = mysql.connection.cursor()
+
+    sql = "SELECT download_code FROM maps"
+    cursor.execute(sql)
+
+    map_codes = cursor.fetchall()
+    cursor.close()
+
+    return map_codes

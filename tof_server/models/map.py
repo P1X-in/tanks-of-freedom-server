@@ -2,7 +2,7 @@
 import hashlib
 import json
 from tof_server import config
-from tof_server.utils import randcoder
+from tof_server.utils import randcoder, png_creator
 from tof_server.repository import map as map_repository
 
 
@@ -18,6 +18,7 @@ def persist_map(map_data, author_id):
         return None
 
     map_repository.persist_new_map(map_data, new_map_code, map_hash, author_id)
+    png_creator.create_map(new_map_code, map_data)
 
     return new_map_code
 
@@ -85,3 +86,13 @@ def _generate_unused_code():
             if size_increase == config.MAP_CODE_LENGTH:
                 return None
             size_increase = size_increase + 1
+
+
+def generate_missing_images():
+    """Method for generating missing map images."""
+    map_codes = map_repository.get_all_codes()
+
+    for code in map_codes:
+        if not png_creator.map_image_exists(code[0]):
+            map_data = find_map(code[0])
+            png_creator.create_map(code[0], map_data)

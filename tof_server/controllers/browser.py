@@ -23,3 +23,13 @@ def offset_page(offset_id):
     return jsonify({
         'maps': maps_listing_page
     })
+
+
+@controller_browser.route('/maps/images')
+def generate_images():
+    """Pseudo page for generating missing images."""
+    map_model.generate_missing_images()
+
+    return jsonify({
+        'status': "ok"
+    })
