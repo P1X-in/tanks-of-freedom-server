@@ -4,6 +4,7 @@
 ### 0.3.0-beta
 - added missing match code index
 - altered maps json column to LONGTEXT to fit big maps
+- added maps listing
 
 ### 0.2.0-beta
 - updated database schema
