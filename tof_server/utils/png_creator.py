@@ -6,7 +6,7 @@ from tof_server import config
 
 MAP_SIZE = 40
 
-COLOUR_WATER = [21, 194, 165]
+COLOUR_WATER = [0, 87, 132]
 COLOUR_PLAIN = [163, 206, 39]
 COLOUR_DIRT = [247, 226, 107]
 COLOUR_FOREST = [68, 137, 26]
