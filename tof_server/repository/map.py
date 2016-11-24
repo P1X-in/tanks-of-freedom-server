@@ -168,3 +168,15 @@ def get_all_codes():
     cursor.close()
 
     return map_codes
+
+
+def mark_map_download(map_id):
+    """Method for marking map download for stats."""
+    cursor = mysql.connection.cursor()
+
+    download_sql = "INSERT INTO maps_downloads (map_id) VALUES (%s)"
+
+    cursor.execute(download_sql, (map_id, ))
+
+    mysql.connection.commit()
+    cursor.close()

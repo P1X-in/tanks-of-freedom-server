@@ -34,6 +34,8 @@ def download_map(map_code):
     if map_data is None:
         abort(404)
 
+    map_model.mark_map_download(map_code)
+
     return jsonify({
         'code': map_code,
         'data': map_data

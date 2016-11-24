@@ -63,6 +63,12 @@ def find_maps_page(offset_id=-1):
     return result
 
 
+def mark_map_download(map_code):
+    """Method for marking map download for stats."""
+    map_id = map_repository.find_id_by_code(map_code)
+    map_repository.mark_map_download(map_id)
+
+
 def _get_code_for_map(map_hash):
     """Method for determining code for a map."""
     existing_map_code = map_repository.find_code_by_hash(map_hash)
