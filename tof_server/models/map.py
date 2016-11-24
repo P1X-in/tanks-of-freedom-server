@@ -41,6 +41,11 @@ def find_maps_page(offset_id=-1):
     """Method for getting list of maps for page."""
     maps_metadata = map_repository.find_latest_maps_metadata(offset_id)
 
+    return _decorate_map_with_data(maps_metadata)
+
+
+def _decorate_map_with_data(maps_metadata):
+    """Method for decorating list of maps with more data."""
     maps_ids = [map_metadata['id'] for map_metadata in maps_metadata]
 
     maps_data = map_repository.find_data_by_ids(maps_ids)
@@ -108,3 +113,14 @@ def generate_missing_images():
         if not png_creator.map_image_exists(code[0]):
             map_data = find_map(code[0])
             png_creator.create_map(code[0], map_data)
+
+
+def find_maps_by_map_author(map_code):
+    """Method for getting list of maps by author of map."""
+    player_id = map_repository.find_player_by_code(map_code)
+    if player_id is None:
+        return []
+
+    maps_metadata = map_repository.find_maps_metadata_by_player(player_id)
+
+    return _decorate_map_with_data(maps_metadata)

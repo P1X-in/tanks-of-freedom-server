@@ -50,6 +50,21 @@ def find_code_by_id(map_id):
     return None
 
 
+def find_player_by_code(code):
+    """Method for finding player_id by map code."""
+    cursor = mysql.connection.cursor()
+    sql = "SELECT player_id FROM maps WHERE download_code = %s"
+
+    cursor.execute(sql, (code,))
+    player_id = cursor.fetchone()
+    cursor.close()
+
+    if player_id:
+        return player_id[0]
+
+    return None
+
+
 def persist_new_map(map_data, code, map_hash, author_id):
     """Method for persisting data for new map."""
     cursor = mysql.connection.cursor()
@@ -196,5 +211,28 @@ def find_download_by_ids(ids):
 
     for map_data in maps_data:
         result[map_data[0]] = map_data[1]
+
+    return result
+
+
+def find_maps_metadata_by_player(player_id):
+    """Method for getting player maps metadata."""
+    cursor = mysql.connection.cursor()
+
+    sql = "SELECT id, download_code, creation_time, player_id FROM maps WHERE player_id = %s ORDER BY id DESC"
+    cursor.execute(sql, (player_id, ))
+
+    maps_metadata = cursor.fetchall()
+    cursor.close()
+
+    result = []
+
+    for map_metadata in maps_metadata:
+        result.append({
+            'id': map_metadata[0],
+            'code': map_metadata[1],
+            'created': map_metadata[2],
+            'author': map_metadata[3],
+        })
 
     return result
