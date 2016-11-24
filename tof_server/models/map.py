@@ -44,6 +44,7 @@ def find_maps_page(offset_id=-1):
     maps_ids = [map_metadata['id'] for map_metadata in maps_metadata]
 
     maps_data = map_repository.find_data_by_ids(maps_ids)
+    maps_downloads = map_repository.find_download_by_ids(maps_ids)
 
     result = []
     for map_metadata in maps_metadata:
@@ -58,6 +59,11 @@ def find_maps_page(offset_id=-1):
                 map_metadata['error'] = True
         else:
             map_metadata['name'] = ""
+
+        if map_metadata['id'] in maps_downloads:
+            map_metadata['downloads'] = maps_downloads[map_metadata['id']]
+        else:
+            map_metadata['downloads'] = 0
         result.append(map_metadata)
 
     return result

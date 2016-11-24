@@ -180,3 +180,21 @@ def mark_map_download(map_id):
 
     mysql.connection.commit()
     cursor.close()
+
+
+def find_download_by_ids(ids):
+    """Method for getting map data by list of ids."""
+    ids = ", ".join(str(x) for x in ids)
+
+    cursor = mysql.connection.cursor()
+    map_downloads_sql = "SELECT map_id, count(map_id) FROM maps_downloads WHERE map_id IN (" + ids + ") GROUP BY map_id"
+    cursor.execute(map_downloads_sql)
+    maps_data = cursor.fetchall()
+    cursor.close()
+
+    result = {}
+
+    for map_data in maps_data:
+        result[map_data[0]] = map_data[1]
+
+    return result
