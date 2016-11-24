@@ -6,6 +6,7 @@
 - altered maps json column to LONGTEXT to fit big maps
 - added maps listing
 - added map preview as png
+- added downloads counter
 
 ### 0.2.0-beta
 - updated database schema
