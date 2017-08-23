@@ -1,6 +1,7 @@
 """Module for operations on maps."""
 import hashlib
 import json
+import collections
 from tof_server import config
 from tof_server.utils import randcoder, png_creator
 from tof_server.repository import map as map_repository
@@ -8,6 +9,7 @@ from tof_server.repository import map as map_repository
 
 def persist_map(map_data, author_id):
     """Method for persisting a map based on it's data content."""
+    map_data = _rewrite_data_as_sorted(map_data)
     map_hash = hashlib.md5(json.dumps(map_data).encode()).hexdigest()
     map_code = _get_code_for_map(map_hash)
     if map_code is not None:
@@ -124,3 +126,16 @@ def find_maps_by_map_author(map_code):
     maps_metadata = map_repository.find_maps_metadata_by_player(player_id)
 
     return _decorate_map_with_data(maps_metadata)
+
+
+def _rewrite_data_as_sorted(data):
+    """Method for re-writing data collection to ensure it is key-sorted."""
+    sorted_data = collections.OrderedDict()
+
+    for key, value in sorted(data.items()):
+        if isinstance(value, dict):
+            sorted_data[key] = _rewrite_data_as_sorted(value)
+        else:
+            sorted_data[key] = value
+
+    return sorted_data
