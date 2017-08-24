@@ -7,6 +7,8 @@
 - added maps listing
 - added map preview as png
 - added downloads counter
+- added sorting of map data for correct md5 generation
+- added support for 0.6.x clients
 
 ### 0.2.0-beta
 - updated database schema
