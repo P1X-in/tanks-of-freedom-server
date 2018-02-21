@@ -236,3 +236,38 @@ def find_maps_metadata_by_player(player_id):
         })
 
     return result
+
+
+def find_maps_metadata_by_top_downloads(limit):
+    """Method for getting top downloaded maps metadata."""
+    cursor = mysql.connection.cursor()
+
+    sql = "SELECT \
+        maps.id, \
+        maps.download_code, \
+        maps.creation_time, \
+        maps.player_id, \
+        count(maps.id) AS downloads \
+        FROM maps_downloads \
+        JOIN maps ON maps_downloads.map_id = maps.id \
+        GROUP BY maps.id ORDER BY \
+        downloads DESC, \
+        id ASC \
+        LIMIT %s;"
+
+    cursor.execute(sql, (limit,))
+    maps_metadata = cursor.fetchall()
+    cursor.close()
+
+    result = []
+
+    for map_metadata in maps_metadata:
+        result.append({
+            'id': map_metadata[0],
+            'code': map_metadata[1],
+            'created': map_metadata[2],
+            'author': map_metadata[3],
+            'downloads': map_metadata[4]
+        })
+
+    return result

@@ -1,6 +1,10 @@
 # Tanks of Freedom Server
 ## Changelog
 
+### 0.4.0-beta
+- added most downloaded maps listing
+- added support for 0.7.x clients
+
 ### 0.3.0-beta
 - added missing match code index
 - altered maps json column to LONGTEXT to fit big maps

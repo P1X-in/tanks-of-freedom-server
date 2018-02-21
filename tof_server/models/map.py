@@ -46,12 +46,21 @@ def find_maps_page(offset_id=-1):
     return _decorate_map_with_data(maps_metadata)
 
 
-def _decorate_map_with_data(maps_metadata):
+def find_maps_top_downloads(top=50):
+    """Method for getting list of top downloaded maps."""
+    maps_metadata = map_repository.find_maps_metadata_by_top_downloads(top)
+
+    return _decorate_map_with_data(maps_metadata, False)
+
+
+def _decorate_map_with_data(maps_metadata, add_downloads=True):
     """Method for decorating list of maps with more data."""
     maps_ids = [map_metadata['id'] for map_metadata in maps_metadata]
 
     maps_data = map_repository.find_data_by_ids(maps_ids)
-    maps_downloads = map_repository.find_download_by_ids(maps_ids)
+    maps_downloads = []
+    if add_downloads:
+        maps_downloads = map_repository.find_download_by_ids(maps_ids)
 
     result = []
     for map_metadata in maps_metadata:
@@ -67,10 +76,11 @@ def _decorate_map_with_data(maps_metadata):
         else:
             map_metadata['name'] = ""
 
-        if map_metadata['id'] in maps_downloads:
-            map_metadata['downloads'] = maps_downloads[map_metadata['id']]
-        else:
-            map_metadata['downloads'] = 0
+        if add_downloads:
+            if map_metadata['id'] in maps_downloads:
+                map_metadata['downloads'] = maps_downloads[map_metadata['id']]
+            else:
+                map_metadata['downloads'] = 0
         result.append(map_metadata)
 
     return result
