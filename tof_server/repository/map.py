@@ -242,6 +242,16 @@ def find_maps_metadata_by_top_downloads(limit):
     """Method for getting top downloaded maps metadata."""
     cursor = mysql.connection.cursor()
 
+    preloaded_maps = [
+        "7K93YLLW",
+        "94EMKDXT",
+        "VWUR37W4",
+        "7FDEXJYF",
+        "YMJHADWT",
+        "CHEKLEEN",
+    ]
+    preloaded_codes = ", ".join("'" + x + "'" for x in preloaded_maps)
+
     sql = "SELECT \
         maps.id, \
         maps.download_code, \
@@ -250,6 +260,7 @@ def find_maps_metadata_by_top_downloads(limit):
         count(maps.id) AS downloads \
         FROM maps_downloads \
         JOIN maps ON maps_downloads.map_id = maps.id \
+        WHERE maps.download_code NOT IN (" + preloaded_codes + ") \
         GROUP BY maps.id ORDER BY \
         downloads DESC, \
         id ASC \
