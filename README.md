@@ -12,10 +12,9 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 
 ## Requirements
 
-- Python 3.x
+- Python 3.5.x or better
 - MySQL 5.x server
 - MySQL driver for Python 3.x
-- Flask
 - Virtualenv and PIP (recommended)
 
 ## Deployment
