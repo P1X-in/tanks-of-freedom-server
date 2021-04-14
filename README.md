@@ -20,12 +20,16 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 
 ## Deployment
 
+- clone the source
 - Create virtualenv for the application
-- clone the source into the new environment
+  - virtualenv -p /usr/bin/python3 flask
+  - source flask/bin/activate
 - install requirements.txt using pip
+  - pip install -r requirements.txt
 - create empty database and fill it using sql/database_bootstrap.sql file
-- run database migrations from sql folder
+  - run database migrations from sql folder
 - configure app in tof_server/config.py (.dist provided)
+- use run.py script to test if app works
 - bind the app to the webserver of your choice (example .wsgi for apache2 provided)
 
 ## Official pages:
