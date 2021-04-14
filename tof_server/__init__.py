@@ -11,3 +11,4 @@ mysql.init_app(app)
 
 from tof_server import errors  # NOQA
 import tof_server.controllers  # NOQA
+import tof_server.commands     # NOQA
