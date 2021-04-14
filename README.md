@@ -24,6 +24,7 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 - clone the source into the new environment
 - install requirements.txt using pip
 - create empty database and fill it using sql/database_bootstrap.sql file
+- run database migrations from sql folder
 - configure app in tof_server/config.py (.dist provided)
 - bind the app to the webserver of your choice (example .wsgi for apache2 provided)
 
