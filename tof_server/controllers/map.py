@@ -6,7 +6,7 @@ from tof_server.models import map as map_model
 controller_map = Blueprint('controller_map', __name__, template_folder='templates')
 
 
-@controller_map.route('/maps', methods=['POST'])
+@controller_map.route('', methods=['POST'])
 def upload_new_map():
     """Method for uploading new map."""
     validation = auth.validate(request)
@@ -22,7 +22,7 @@ def upload_new_map():
     })
 
 
-@controller_map.route('/maps/<string:map_code>.json', methods=['GET'])
+@controller_map.route('/<string:map_code>.json', methods=['GET'])
 def download_map(map_code):
     """Method for downloading a map."""
     validation = versioning.validate(request)
@@ -42,7 +42,7 @@ def download_map(map_code):
     })
 
 
-@controller_map.route('/maps/metadata/<string:map_code>.json', methods=['GET'])
+@controller_map.route('/metadata/<string:map_code>.json', methods=['GET'])
 def download_map_metadata(map_code):
     """Method for downloading a map metadata."""
     map_data = map_model.find_map(map_code)

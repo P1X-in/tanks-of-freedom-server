@@ -6,7 +6,7 @@ from tof_server.validators import versioning
 controller_player = Blueprint('controller_player', __name__, template_folder='templates')
 
 
-@controller_player.route('/players', methods=['POST'])
+@controller_player.route('', methods=['POST'])
 def generate_new_id():
     """Method for generating new unique player ids."""
     validation = versioning.validate(request)

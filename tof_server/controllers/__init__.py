@@ -7,7 +7,7 @@ from tof_server.controllers.player import controller_player
 from tof_server.controllers.browser import controller_browser
 
 app.register_blueprint(controller_main)
-app.register_blueprint(controller_player)
-app.register_blueprint(controller_map)
+app.register_blueprint(controller_player, url_prefix="/players")
+app.register_blueprint(controller_map, url_prefix="/maps")
 app.register_blueprint(controller_match)
-app.register_blueprint(controller_browser)
+app.register_blueprint(controller_browser, url_prefix="/maps")
