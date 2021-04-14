@@ -1,6 +1,6 @@
 """Module init."""
 from flask import Flask
-from flask.ext.mysqldb import MySQL
+from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
