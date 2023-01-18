@@ -17,6 +17,9 @@ def store_map_v2(map_code, map_data):
 
 def get_map_v2(map_code):
     """Method for reading map data from file."""
+    if not _map_exists(map_code):
+        return None
+
     map_data = None
     with open(_get_file_path(map_code), "r") as data:
         map_data = json.load(data)

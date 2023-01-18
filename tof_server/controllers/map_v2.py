@@ -40,17 +40,17 @@ def download_map(map_code):
     })
 
 
-@controller_map_v2.route('/metadata/<string:map_code>.json', methods=['GET'])
+@controller_map_v2.route('/metadata/<string:map_code>.tofmap.json', methods=['GET'])
 def download_map_metadata(map_code):
     """Method for downloading a map metadata."""
-    map_data = map_model.find_map(map_code)
+    map_data = map_model.file_storage.get_map_v2(map_code)
     if map_data is None:
         abort(404)
 
     map_metadata = map_model.find_map_metadata(map_code)
 
-    if 'name' in map_data:
-        map_metadata['name'] = map_data['name']
+    if 'name' in map_data['metadata']:
+        map_metadata['name'] = map_data['metadata']['name']
     else:
         map_metadata['name'] = ''
 

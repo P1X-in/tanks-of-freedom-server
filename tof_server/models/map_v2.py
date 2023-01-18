@@ -1,5 +1,4 @@
 """Module for operations on maps."""
-import json
 from tof_server import config
 from tof_server.utils import randcoder, file_storage
 from tof_server.utils import png_creator_v2 as png_creator
@@ -35,11 +34,7 @@ def persist_map(map_data, author_id):
 
 def find_map(map_code):
     """Method for retrieving map data."""
-    map_data = file_storage.get_map_v2(map_code)
-    if map_data is None:
-        return None
-
-    return json.loads(map_data)
+    return file_storage.get_map_v2(map_code)
 
 
 def find_map_metadata(map_code):
