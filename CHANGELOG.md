@@ -1,6 +1,9 @@
 # Tanks of Freedom Server
 ## Changelog
 
+### 0.5.0-beta
+- added support for ToF-II 0.3.0 clients
+
 ### 0.4.0-beta
 - added most downloaded maps listing
 - added support for 0.7.x clients

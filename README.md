@@ -12,7 +12,7 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 
 ## Requirements
 
-- Python 3.5.x or better
+- Python 3.5.x or newer
 - MySQL 5.x server
 - MySQL driver for Python 3.x
 - Virtualenv and PIP (recommended)

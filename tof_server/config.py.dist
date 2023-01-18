@@ -9,3 +9,5 @@ MYSQL_DB = 'db'
 MAP_CODE_LENGTH = 8
 INTEGRATE_MAP_BROWSER = False
 MAP_IMAGES_FOLDER = "/tmp/"
+MAP_V2_IMAGES_FOLDER = "/tmp/maps/v2/"
+MAPS_V2_FOLDER = "/tmp/maps/v2/"
