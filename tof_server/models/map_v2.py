@@ -120,7 +120,7 @@ def _fill_metadata(metadata):
     if 'iteration' not in metadata:
         metadata['iteration'] = 0
     if 'base_code' not in metadata or metadata['base_code'] is None:
-        base_code = _generate_unused_code(metadata['iteration'])
+        base_code = _generate_unused_code()
         if base_code is None:
             return None
         metadata['base_code'] = base_code
