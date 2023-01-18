@@ -14,7 +14,12 @@ def persist_map(map_data, author_id):
     existing_id = map_repository.find_id_by_code(new_map_code)
 
     if existing_id is not None:
-        return None
+        return {
+            'created': False,
+            'code': new_map_code,
+            'base_code': map_data['metadata']['base_code'],
+            'iteration': map_data['metadata']['iteration']
+        }
 
     map_repository.persist_new_map(
         new_map_code,
@@ -26,6 +31,7 @@ def persist_map(map_data, author_id):
     png_creator.create_map(new_map_code, map_data)
 
     return {
+        'created': True,
         'code': new_map_code,
         'base_code': map_data['metadata']['base_code'],
         'iteration': map_data['metadata']['iteration']
