@@ -73,7 +73,7 @@ def _decorate_map_with_data(maps_metadata, add_downloads=True):
     result = []
     for map_metadata in maps_metadata:
         map_data = file_storage.get_map_v2(map_metadata['code'])
-        map_metadata['name'] = ""
+        map_metadata['name'] = map_metadata['code']
         if 'metadata' in map_data:
             map_metadata['name'] = map_data['metadata']['name']
 
