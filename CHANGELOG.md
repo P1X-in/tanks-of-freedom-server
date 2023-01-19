@@ -3,6 +3,8 @@
 
 ### 0.5.0-beta
 - added support for ToF-II 0.3.0 clients
+- v2 endpoints for maps and browser
+- v2 thumbnail generator
 
 ### 0.4.0-beta
 - added most downloaded maps listing

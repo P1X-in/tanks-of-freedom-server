@@ -14,6 +14,7 @@ def index():
     else:
         return jsonify({
             'server-version': versioning.SERVER_VERSION,
-            'client-versions': versioning.CLIENT_VERSIONS,
+            'client-versions-1': versioning.CLIENT_VERSIONS,
+            'client-versions-2': versioning.CLIENT2_VERSIONS,
             'you': request.user_agent.string
         })
