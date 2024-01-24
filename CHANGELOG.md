@@ -1,6 +1,10 @@
 # Tanks of Freedom Server
 ## Changelog
 
+### 0.6.0-beta
+- upgraded to Python 3.11
+- dependencies updates
+
 ### 0.5.0-beta
 - added support for ToF-II 0.3.0 clients
 - v2 endpoints for maps and browser

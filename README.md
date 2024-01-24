@@ -2,19 +2,25 @@
 
 ![Tanks of Freedom](https://img.itch.io/aW1hZ2UvMTc3MDUvMjI3Mzk3LnBuZw==/original/jFFytG.png)
 
+![Tanks of Freedom II](https://img.itch.zone/aW1nLzg4NDUzNDMucG5n/original/xkK2BE.png)
+
 ## Indie Turn Based Strategy in Isometric Pixel Art
 
-This project is a server for Tanks of Freedom game. It allows players to share custom maps and play online matches (multiplayer is still in development)
+This project is a server for Tanks of Freedom and Tanks of Freedom II games. It allows players to share custom maps. It also enables online play for ToF 1.
 
 ## Client
 
-For the source code of the client please visit [https://github.com/w84death/Tanks-of-Freedom](https://github.com/w84death/Tanks-of-Freedom)
+For the source code of the clients please visit [https://github.com/w84death/Tanks-of-Freedom](https://github.com/w84death/Tanks-of-Freedom) and [https://github.com/P1X-in/tanks-of-freedom-ii](https://github.com/P1X-in/tanks-of-freedom-ii)
 
 ## Requirements
 
-- Python 3.5.x or newer
+- Python 3.11.x or newer
 - MySQL 5.x server
 - MySQL driver for Python 3.x
+  - pkg-config
+  - python3-dev
+  - default-libmysqlclient-dev
+  - build-essential
 - Virtualenv and PIP (recommended)
 
 ## Deployment
@@ -32,7 +38,8 @@ For the source code of the client please visit [https://github.com/w84death/Tank
 - bind the app to the webserver of your choice (example .wsgi for apache2 provided)
 
 ## Official pages:
-- Official game page: [tof.p1x.in](http://tof.p1x.in)
+- Official ToF page: [tof.p1x.in](http://tof.p1x.in)
+- Official ToF II page: [czlowiekimadlo.itch.io/tanks-of-freedom-ii](https://czlowiekimadlo.itch.io/tanks-of-freedom-ii)
 - Official P1X page: [p1x.in](http://p1x.in)
 
 ## The MIT License (MIT)
