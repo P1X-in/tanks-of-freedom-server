@@ -62,6 +62,7 @@ def create_map(map_code, map_data):
 
     image_matrix = generate_base_image_matrix()
     image_matrix = fill_matrix_with_data(image_matrix, map_data)
+    image_matrix = _flatten_matrix(image_matrix)
 
     image = png.from_array(image_matrix, "RGB")
     image.save(file_path)
@@ -134,3 +135,18 @@ def fill_matrix_with_data(image_matrix, map_data):
                 colour = COLOUR_OTHER
             image_matrix[y][x] = colour
     return image_matrix
+
+
+def _flatten_matrix(image_matrix):
+    """Method for flattening the generated matrix."""
+    flat_data = []
+
+    for row in image_matrix:
+        new_row = []
+        for pixel in row:
+            new_row.append(pixel[0])
+            new_row.append(pixel[1])
+            new_row.append(pixel[2])
+        flat_data.append(new_row)
+
+    return flat_data

@@ -244,7 +244,6 @@ def create_map(map_code, map_data):
 
     image_matrix = _generate_base_image_matrix()
     image_matrix = _fill_matrix_with_data(image_matrix, map_data)
-
     image_matrix = _flatten_matrix(image_matrix)
 
     image = png.from_array(image_matrix, 'RGB')
