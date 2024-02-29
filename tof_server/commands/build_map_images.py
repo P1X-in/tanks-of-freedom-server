@@ -2,7 +2,7 @@
 from flask import Blueprint
 from tof_server.models import map as map_model
 
-build_map_images_command = Blueprint('admin', __name__)
+build_map_images_command = Blueprint('build-map-images', __name__, cli_group='admin')
 
 
 @build_map_images_command.cli.command('build-map-images')
