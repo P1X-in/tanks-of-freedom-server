@@ -14,6 +14,6 @@ def execute(code):
     """Generate missing images."""
     map_data = file_storage.get_map_v2(code)
     print(map_data["metadata"])
-    # png_creator.create_map(code, map_data)
+    png_creator.create_map(code, map_data)
 
     # map_model.generate_missing_images()
