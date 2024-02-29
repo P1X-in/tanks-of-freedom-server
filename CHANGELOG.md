@@ -1,6 +1,10 @@
 # Tanks of Freedom Server
 ## Changelog
 
+### 0.6.1-beta
+- added command for single map thumbnail generation
+- fixed thumbnail generation broken by updated pypng
+
 ### 0.6.0-beta
 - upgraded to Python 3.11
 - dependencies updates

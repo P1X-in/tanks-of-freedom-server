@@ -37,6 +37,16 @@ For the source code of the clients please visit [https://github.com/w84death/Tan
 - use run.py script to test if app works
 - bind the app to the webserver of your choice (example .wsgi for apache2 provided)
 
+## Commands
+
+Server has a few commands that are useful for managing it. So far there are only two for fixing map thumbnails, but more could be added.
+
+In order to use a command:
+- cd into the server folder
+- `source {virtualenv folder name}/bin/activate`
+- `flask --app tof_server admin {command name} (optional args)`
+- "admin" group name is used for existing commands, but others could be used as well
+
 ## Official pages:
 - Official ToF page: [tof.p1x.in](http://tof.p1x.in)
 - Official ToF II page: [czlowiekimadlo.itch.io/tanks-of-freedom-ii](https://czlowiekimadlo.itch.io/tanks-of-freedom-ii)
