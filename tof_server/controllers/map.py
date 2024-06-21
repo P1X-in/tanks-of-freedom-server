@@ -13,6 +13,10 @@ def upload_new_map():
     if validation['status'] != 'ok':
         abort(validation['code'])
 
+    validation = versioning.validate(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
     map_code = map_model.persist_map(request.json['data'], request.json['player_id'])
     if map_code is None:
         abort(500)
@@ -45,6 +49,10 @@ def download_map(map_code):
 @controller_map.route('/metadata/<string:map_code>.json', methods=['GET'])
 def download_map_metadata(map_code):
     """Method for downloading a map metadata."""
+    validation = versioning.validate_reject(request)
+    if validation['status'] != 'ok':
+        abort(validation['code'])
+
     map_data = map_model.find_map(map_code)
     if map_data is None:
         abort(404)
