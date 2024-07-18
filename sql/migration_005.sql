@@ -1,0 +1,7 @@
+START TRANSACTION;
+
+INSERT INTO versioning (version_number) VALUES (5);
+
+ALTER TABLE players ADD banned BOOL NOT NULL DEFAULT 0;
+
+COMMIT;

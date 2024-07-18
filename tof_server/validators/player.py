@@ -10,7 +10,7 @@ def validate(request, cursor):
     if 'player_pin' not in request.json:
         return get_error(400)
 
-    sql = "SELECT auto_pin FROM players WHERE id = %s"
+    sql = "SELECT auto_pin FROM players WHERE id = %s AND banned = 0"
     cursor.execute(sql, (request.json['player_id'],))
     result = cursor.fetchone()
 
