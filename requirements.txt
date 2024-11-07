@@ -2,7 +2,7 @@ Flask==3.0.1
 Flask-MySQLdb==2.0.0
 Jinja2==3.1.4
 MarkupSafe==2.1.4
-Werkzeug==3.0.3
+Werkzeug==3.0.6
 itsdangerous==2.1.2
 pypng==0.20220715.0
 mysqlclient==2.2.1
