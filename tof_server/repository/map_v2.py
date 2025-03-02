@@ -257,7 +257,7 @@ def ban_map_by_code(map_code):
     """Method for banning a map by it's code."""
     cursor = mysql.connection.cursor()
 
-    sql = "UPDATE maps_v2 SET banned = 1 WHERE download_code = '%s';"
+    sql = "UPDATE maps_v2 SET banned = 1 WHERE download_code = \"%s\";"
 
     cursor.execute(sql, (map_code, ))
 
