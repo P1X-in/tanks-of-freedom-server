@@ -1,13 +1,11 @@
 """Ban map v2 command blueprint."""
 import click
-from flask import Blueprint
+from tof_server.commands.admin_group import admin_cli
 from tof_server.models import map_v2 as map_model
 from tof_server.utils import file_storage
 
-ban_map_v2_command = Blueprint('ban-map-v2', __name__, cli_group='admin')
 
-
-@ban_map_v2_command.cli.command('ban-map-v2')
+@admin_cli.command('ban-map-v2')
 @click.argument('code')
 def execute(code):
     """Ban v2 map by code."""

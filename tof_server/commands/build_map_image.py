@@ -1,14 +1,12 @@
 """Build map image command blueprint."""
 import click
-from flask import Blueprint
+from tof_server.commands.admin_group import admin_cli
 from tof_server.models import map as map_model
 from tof_server.utils import png_creator, png_creator_v2
 from tof_server.utils import file_storage
 
-build_map_image_command = Blueprint('build-map-image', __name__, cli_group='admin')
 
-
-@build_map_image_command.cli.command('build-map-image')
+@admin_cli.command('build-map-image')
 @click.argument('code')
 def execute(code):
     """Generate missing images."""
