@@ -118,11 +118,11 @@ def find_latest_maps_metadata(offset_id):
 
     if offset_id > -1:
         sql = "SELECT id, download_code, base_code, iteration, creation_time, player_id \
-            FROM maps_v2 WHERE id < %s ORDER BY id DESC LIMIT %s"
+            FROM maps_v2 WHERE id < %s AND banned = 0 ORDER BY id DESC LIMIT %s"
         cursor.execute(sql, (offset_id, MAPS_PER_PAGE))
     else:
         sql = "SELECT id, download_code, base_code, iteration, creation_time, player_id \
-            FROM maps_v2 ORDER BY id DESC LIMIT %s"
+            FROM maps_v2 WHERE banned = 0 ORDER BY id DESC LIMIT %s"
         cursor.execute(sql, (MAPS_PER_PAGE,))
 
     maps_metadata = cursor.fetchall()
@@ -192,7 +192,7 @@ def find_maps_metadata_by_player(player_id):
     cursor = mysql.connection.cursor()
 
     sql = "SELECT id, download_code, base_code, iteration, creation_time, player_id \
-        FROM maps_v2 WHERE player_id = %s ORDER BY id DESC"
+        FROM maps_v2 WHERE player_id = %s AND banned = 0 ORDER BY id DESC"
     cursor.execute(sql, (player_id, ))
 
     maps_metadata = cursor.fetchall()
@@ -227,6 +227,7 @@ def find_maps_metadata_by_top_downloads(limit):
         count(maps_v2.id) AS downloads \
         FROM maps_downloads_v2 \
         JOIN maps_v2 ON maps_downloads_v2.map_id = maps_v2.id \
+        WHERE maps_v2.banned = 0\
         GROUP BY maps_v2.id ORDER BY \
         downloads DESC, \
         id ASC \
@@ -250,3 +251,15 @@ def find_maps_metadata_by_top_downloads(limit):
         })
 
     return result
+
+
+def ban_map_by_code(map_code):
+    """Method for banning a map by it's code."""
+    cursor = mysql.connection.cursor()
+
+    sql = "UPDATE maps_v2 SET banned = 1 WHERE download_code = '%s';"
+
+    cursor.execute(sql, (map_code, ))
+
+    mysql.connection.commit()
+    cursor.close()

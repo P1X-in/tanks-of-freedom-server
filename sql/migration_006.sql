@@ -1,0 +1,7 @@
+START TRANSACTION;
+
+INSERT INTO versioning (version_number) VALUES (6);
+
+ALTER TABLE maps_v2 ADD banned BOOL NOT NULL DEFAULT 0;
+
+COMMIT;

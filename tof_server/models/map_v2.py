@@ -136,3 +136,8 @@ def _fill_metadata(metadata):
         metadata['name'] = metadata['base_code']
 
     return metadata
+
+
+def ban_map_by_code(map_code):
+    """Method for banning a map by it's code."""
+    map_repository.ban_map_by_code(map_code)
